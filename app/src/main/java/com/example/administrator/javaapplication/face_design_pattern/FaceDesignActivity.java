@@ -19,6 +19,6 @@ public class FaceDesignActivity extends AppCompatActivity {
             public void run() {
                 watchMovie.closeMovie();
             }
-        },3000);
+        },5000);
     }
 }
