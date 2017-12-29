@@ -15,6 +15,7 @@ import com.example.administrator.javaapplication.ThreadPoolExecutor.ExecutorUtil
 import com.example.administrator.javaapplication.pingme.CommonConstants;
 import com.example.administrator.javaapplication.pingme.PingService;
 
+import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -29,6 +30,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mCart = new Cart(this);
 
+        init();
+    }
+
+    private void init() {
+        ArrayList<Integer> list = new ArrayList<>();
+
+        for (int i=0;i<50;i++){
+            list.add(i);
+        }
     }
 
     public void click(View view) {
@@ -47,24 +57,25 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.notify_button:
                 //number ++;
-                Intent intent = new Intent(this,NavigationActivity.class);
+                Intent intent = new Intent(this, NavigationActivity.class);
                 TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
                 stackBuilder.addParentStack(NavigationActivity.class);
                 stackBuilder.addNextIntent(intent);
-                NotificationCompat.Builder builder = new NotificationCompat.Builder(this,"1");
-                builder.setSmallIcon(R.drawable.ic_home_black_24dp).setContentTitle("Notification").setContentText("This is a notification"+ number).setNumber(number++);
+                NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "1");
+                builder.setSmallIcon(R.drawable.ic_home_black_24dp).setContentTitle("Notification").setContentText("This is a notification" + number).setNumber(number++);
 
-                PendingIntent pendingIntent = stackBuilder.getPendingIntent(0,PendingIntent.FLAG_UPDATE_CURRENT);
+                PendingIntent pendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
                 builder.setContentIntent(pendingIntent);
                 builder.setDefaults(NotificationCompat.DEFAULT_ALL);
                 builder.setAutoCancel(true);
                 NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                manager.notify(1,builder.build());
+                assert manager != null;
+                manager.notify(1, builder.build());
                 break;
             case R.id.button_big:
                 Intent intent_big = new Intent(this, PingService.class);
                 intent_big.setAction(CommonConstants.ACTION_PING);
-                intent_big.putExtra(CommonConstants.EXTRA_MESSAGE,"AAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+                intent_big.putExtra(CommonConstants.EXTRA_MESSAGE, "AAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
                 startService(intent_big);
                 break;
 
@@ -78,16 +89,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void testThreadPool() {
-       // ExecutorService service = ExecutorUtil.getExecutorUtil().getCacheThreadExecutor();
+        // ExecutorService service = ExecutorUtil.getExecutorUtil().getCacheThreadExecutor();
         ScheduledExecutorService service = ExecutorUtil.getExecutorUtil().getScheduled();
-        Runnable runnable  = new Runnable() {
+        Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                Log.e("Thread====",Thread.currentThread().getName()+"=="+Thread.activeCount());
+                Log.e("Thread====", Thread.currentThread().getName() + "==" + Thread.activeCount());
 
             }
         };
-        for (int i=0;i<10;i++){
+        for (int i = 0; i < 10; i++) {
             //service.scheduleAtFixedRate(runnable,1,3, TimeUnit.SECONDS);
 
         }
@@ -95,19 +106,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setProgressNotify() {
-        final NotificationCompat.Builder builder = new NotificationCompat.Builder(this,"");
+        final NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "");
         builder.setSmallIcon(R.drawable.ic_stat_notification).setContentTitle(getString(R.string.app_name)).setContentText("Downing...")
                 .setAutoCancel(true);
-       final NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        final NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
         new Thread(new Runnable() {
             @Override
             public void run() {
                 int number_progress = 0;
-                for (;number_progress<50;number_progress+=5){
-                    builder.setProgress(50,number_progress,true);
+                for (; number_progress < 50; number_progress += 5) {
+                    builder.setProgress(50, number_progress, true);
                     //builder.setProgress(50,number_progress,false);
-                    manager.notify(1,builder.build());
+                    assert manager != null;
+                    manager.notify(1, builder.build());
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
@@ -116,8 +128,8 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 builder.setContentText("Down Complete");
-                builder.setProgress(0,0,false);
-                manager.notify(1,builder.build());
+                builder.setProgress(0, 0, false);
+                manager.notify(1, builder.build());
             }
         }).start();
 

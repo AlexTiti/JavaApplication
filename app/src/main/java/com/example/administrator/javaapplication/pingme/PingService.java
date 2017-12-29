@@ -57,14 +57,17 @@ public class PingService extends IntentService {
         String action = intent.getAction();
         // This section handles the 3 possible actions:
         // ping, snooze, and dismiss.
+        assert action != null;
         if(action.equals(CommonConstants.ACTION_PING)) {
             issueNotification(intent, mMessage);
         } else if (action.equals(CommonConstants.ACTION_SNOOZE)) {
+            assert nm != null;
             nm.cancel(CommonConstants.NOTIFICATION_ID);
             // Sets a snooze-specific "done snoozing" message.
             issueNotification(intent, getString(R.string.app_name));
 
         } else if (action.equals(CommonConstants.ACTION_DISMISS)) {
+            assert nm != null;
             nm.cancel(CommonConstants.NOTIFICATION_ID);
         }
     }

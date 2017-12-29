@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.administrator.javaapplication">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
         <activity
             android:name=".NavigationActivity"
             android:label="@string/title_activity_navigation"
@@ -35,10 +37,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".NavigationActivity" />
         </activity>
-        <activity android:name=".modle_design_pattern.ModleDesignActivity">
+        <activity android:name=".modle_design_pattern.ModleDesignActivity"></activity>
+        <activity android:name=".face_design_pattern.FaceDesignActivity">
 
         </activity>
-        <activity android:name=".face_design_pattern.FaceDesignActivity">
+        <activity android:name=".adapter_design_pattern.AdapterActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

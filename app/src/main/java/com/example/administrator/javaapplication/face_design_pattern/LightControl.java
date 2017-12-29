@@ -12,6 +12,7 @@ import android.util.Log;
  *   @version  :   V 1.0.9
  */
 
+
 public class LightControl {
 
     void openLight(){

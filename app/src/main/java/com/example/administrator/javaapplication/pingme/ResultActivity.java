@@ -33,7 +33,7 @@ public class ResultActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
         String message = getIntent().getStringExtra(CommonConstants.EXTRA_MESSAGE);
-        TextView text = (TextView) findViewById(R.id.result_message);
+        TextView text = findViewById(R.id.result_message);
         text.setText(message);
     }
 

@@ -36,6 +36,6 @@ public final class CommonConstants {
     public static final String ACTION_PING = "com.example.android.pingme.ACTION_PING";
     public static final String EXTRA_MESSAGE= "com.example.android.pingme.EXTRA_MESSAGE";
     public static final String EXTRA_TIMER = "com.example.android.pingme.EXTRA_TIMER";
-    public static final int NOTIFICATION_ID = 001;
+    public static final int NOTIFICATION_ID = 1;
     public static final String DEBUG_TAG = "PingMe";
 }
